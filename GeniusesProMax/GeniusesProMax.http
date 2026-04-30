@@ -1,0 +1,6 @@
+@GeniusesProMax_HostAddress = http://localhost:5108
+
+GET {{GeniusesProMax_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

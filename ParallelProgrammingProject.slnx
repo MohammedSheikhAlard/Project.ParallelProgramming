@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GeniusesProMax/GeniusesProMax.csproj" />
+  <Project Path="Infrastruccture/Infrastructure.csproj" />
+</Solution>
