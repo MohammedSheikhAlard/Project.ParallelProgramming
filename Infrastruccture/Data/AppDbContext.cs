@@ -1,4 +1,5 @@
 ﻿using Infrastruccture.Entities;
+using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -19,6 +20,7 @@ namespace Infrastructure.Data
         public DbSet<CartItem> CartItems => Set<CartItem>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+        public DbSet<DailySalesSummary> DailySalesSummaries => Set<DailySalesSummary>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -98,6 +100,12 @@ namespace Infrastructure.Data
                 new Product { Id = 9, Name = "Speakers", Price = 120.00m, StockQuantity = 20 }
             );
 
+            //---------- Daily Sales Summary ----------
+            modelBuilder.Entity<DailySalesSummary>(entity =>
+            {
+                entity.HasKey(d => d.Id);
+                entity.HasIndex(d => d.Date).IsUnique();
+            });
 
             // ---------- Seed users ----------
             // Password for both is "password123"
