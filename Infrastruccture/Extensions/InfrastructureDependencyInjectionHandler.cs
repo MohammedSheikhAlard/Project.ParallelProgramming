@@ -1,4 +1,5 @@
-﻿using Infrastructure .Data;
+﻿using Infrastructure.BackgroundJob;
+using Infrastructure .Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,14 @@ namespace Infrastructure .Extensions
             {
                 options.UseSqlServer("Server=.;Database=ParallelProject;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true");
             });
+
+            services.AddSingleton<IBackgroundTaskQueue>(provider => 
+                    new BackgroundTaskQueue(capacity: 100));
+
+            services.AddHostedService<QueuedHostService>();
+
+            services.AddHostedService<DailySalesBatchService>();
+
             return services;
         }
     }
