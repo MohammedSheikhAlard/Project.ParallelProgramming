@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="GeniusesProMax.LoadBalancer/GeniusesProMax.LoadBalancer.csproj" Id="c942994c-0306-4002-aa3d-d7b8dffc6213" />
   <Project Path="GeniusesProMax/GeniusesProMax.csproj" />
   <Project Path="Infrastruccture/Infrastructure.csproj" />
 </Solution>
