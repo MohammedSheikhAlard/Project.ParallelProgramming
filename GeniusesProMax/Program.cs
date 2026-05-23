@@ -1,6 +1,7 @@
 using GeniusesProMax;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -13,7 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddInfrastructureDependencyInjection();
+builder.Services.AddInfrastructureDependencyInjection(builder.Configuration);
 builder.Services.AddDependencyIndection();
 
 
@@ -93,11 +94,23 @@ options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
+// for requirement 5
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.Use(async (context, next) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    // Get the local port the server is actually listening on
+    var address = context.Connection.LocalPort;
+    context.Response.Headers.Add("X-Backend-Instance", address.ToString());
+    await next();
+});
 
 app.UseHttpsRedirection();
 
