@@ -35,6 +35,20 @@ namespace GeniusesProMax.Controllers
             }
         }
 
+        [HttpPost("checkout-pessimistic")]
+        public async Task<ActionResult<OrderDto>> CheckoutPessimistic()
+        {
+            try
+            {
+                var order = await _orderService.CheckoutWithPessimisticLockAsync(GetUserId());
+                return Ok(order);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpGet("get-order-history")]
         public async Task<ActionResult<List<OrderDto>>> GetHistory()
         {

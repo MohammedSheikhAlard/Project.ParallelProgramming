@@ -6,5 +6,6 @@ namespace GeniusesProMax.Interfaces
     {
         Task<OrderDto> CheckoutAsync(int userId);
         Task<List<OrderDto>> GetOrderHistoryAsync(int userId);
+        Task<OrderDto> CheckoutWithPessimisticLockAsync(int userId);
     }
 }
